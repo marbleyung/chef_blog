@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -7,7 +8,7 @@ from mptt.models import MPTTModel
 
 class Category(MPTTModel):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
     parent = TreeForeignKey('self', related_name='children',
                                on_delete=models.SET_NULL,
                                null=True, blank=True)
@@ -18,10 +19,13 @@ class Category(MPTTModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('blog:posts', kwargs={'slug': self.slug})
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
@@ -38,7 +42,7 @@ class Post(models.Model):
                                on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
 
     def __str__(self):
         return self.title
@@ -53,12 +57,12 @@ class Recipe(models.Model):
     serves = models.CharField(max_length=100)
     prep_time = models.PositiveSmallIntegerField(default=0)
     cook_time = models.PositiveSmallIntegerField(default=0)
-    ingredients = models.TextField()
-    directions = models.TextField()
+    ingredients = RichTextField()
+    directions = RichTextField()
     post = models.ForeignKey(Post, related_name='recipes',
                              on_delete=models.SET_NULL,
                              null=True, blank=True)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name

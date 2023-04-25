@@ -19,7 +19,9 @@ class TagAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'author', 'created_at', 'id', )
     prepopulated_fields = {'slug': ('title', )}
-
+    inlines = [RecipeInline]
+    save_as = True
+    save_on_top = True
 
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('name', 'prep_time', 'cook_time', )

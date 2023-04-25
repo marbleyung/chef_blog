@@ -1,10 +1,15 @@
-from django.shortcuts import render
 from django.views import generic
 from .models import *
 
 
-def home(request):
-    return render(request, 'base.html')
+class HomeView(generic.ListView):
+    model = Post
+    paginate_by = 9
+    template_name = 'blog/home.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        return Post.objects.all().select_related('category', 'author')
 
 
 class PostListView(generic.ListView):
@@ -14,7 +19,7 @@ class PostListView(generic.ListView):
     def get_queryset(self):
         return Post.objects.\
             filter(category__slug=self.kwargs.get('slug')). \
-            select_related('category')
+            select_related('category', 'author')
 
 
 class PostDetailView(generic.DetailView):
@@ -24,5 +29,4 @@ class PostDetailView(generic.DetailView):
 
     def get_queryset(self):
         return Post.objects.\
-            filter(slug=self.kwargs.get('post_slug')). \
-            select_related('category').prefetch_related('recipes')
+            filter(slug=self.kwargs.get('post_slug'))
