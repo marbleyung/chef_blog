@@ -1741,7 +1741,7 @@ ol {
 }
 
 .single-post__hero {
-	height: 960px;
+	height: 320px;
 }
 
 .single-post__title {
@@ -3213,7 +3213,7 @@ ol {
 		width: 100%;
 	}
 	.single-post__hero {
-		height: 700px;
+		height: 200px;
 	}
 	.signin {
 		-webkit-box-align: start;

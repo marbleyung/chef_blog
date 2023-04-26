@@ -1,12 +1,11 @@
-{% load static menu_tags %}
+{% load static menu_tags cache %}
                         <nav class="header__menu">
                             <ul>
-                                <li class="active"><a href="{% url 'blog:home' %}}">Home</a></li>
+                                <li class="active"><a href="{% url 'blog:home' %}">Home</a></li>
                                 {% get_last_posts %}
 
                                 {% get_categories %}
-
-                                <li><a href="./about.html">About</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
+                                <li><a href="{% url 'contact:about' %}">About</a></li>
+                                <li><a href="{% url 'contact:contact' %}">Contact</a></li>
                             </ul>
                         </nav>

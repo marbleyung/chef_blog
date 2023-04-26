@@ -23,14 +23,19 @@ class PostAdmin(admin.ModelAdmin):
     save_as = True
     save_on_top = True
 
+
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('name', 'prep_time', 'cook_time', )
     prepopulated_fields = {'slug': ('name', )}
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'created_at', 'id', )
 
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(Comment)
+admin.site.register(Comment, CommentAdmin)
 

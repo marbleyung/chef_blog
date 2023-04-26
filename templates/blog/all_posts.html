@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Posts {% endblock %}
+{% block title %} All Posts {% endblock %}
 {% block content %}
 
     <section class="categories categories-grid spad">
@@ -10,15 +10,15 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
                             <div class="breadcrumb__text">
-                                <h2>Categories: <span>{{ category.name }}</span></h2>
+                                <h2>Categories: <span>All</span></h2>
                                 <div class="breadcrumb__option">
                                     <a href="{% url 'blog:home' %}">Home</a>
-                                    <span>{{ category.name }}</span>
+                                    <span>All Posts</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                {% for post in posts %}
+                                {% for post in all_posts %}
                                     <div class="categories__post__item">
                                         <div class="categories__post__item__pic small__item set-bg"
                                             data-setbg="{{ post.image.url }}">
@@ -41,7 +41,9 @@
                                 {% endfor %}
                                 </div>
                             </div>
-                            {% if page_obj.has_previous or page_obj.has_next%}
+
+
+                            {% if page_obj.has_previous or page_obj.has_next %}
                             <div class="pagination">
                                 <span class="step-links">
                                     {% if page_obj.has_previous %}
@@ -60,6 +62,7 @@
                                 </span>
                             </div>
                             {% endif %}
+
                         </div>
                             {% include 'include/sidebar.html' %}
                     </div>

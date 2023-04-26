@@ -43,13 +43,17 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
     slug = models.SlugField(max_length=100, unique=True)
+    min_read = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={'slug': self.category.slug,
-                                       'post_slug': self.slug})
+                                            'post_slug': self.slug})
+
+    def post_min_read(self):
+        return f"{self.min_read} min read"
 
 
 class Recipe(models.Model):
@@ -71,12 +75,12 @@ class Recipe(models.Model):
 class Comment(models.Model):
     name = models.CharField(max_length=60)
     email = models.EmailField(max_length=100)
-    website = models.CharField(max_length=100)
+    website = models.CharField(max_length=100, blank=True, null=True)
     message = models.TextField(max_length=500)
-    post = models.ForeignKey(Post, related_name='comment',
+    post = models.ForeignKey(Post, related_name='comments',
                              on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
-
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Posts {% endblock %}
+{% block title %} Search Results for {{ query }} {% endblock %}
 {% block content %}
 
     <section class="categories categories-grid spad">
@@ -10,11 +10,7 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
                             <div class="breadcrumb__text">
-                                <h2>Categories: <span>{{ category.name }}</span></h2>
-                                <div class="breadcrumb__option">
-                                    <a href="{% url 'blog:home' %}">Home</a>
-                                    <span>{{ category.name }}</span>
-                                </div>
+                                <h2>Search for <span>{{ query }}</span></h2>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
