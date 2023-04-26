@@ -6,8 +6,8 @@ from .views import *
 app_name = 'blog'
 
 urlpatterns = [
-    path('', HomeView.as_view(), name='home'),
-    # path('', cache_page(60 * 60 * 24)(HomeView.as_view()), name='home'),
+    # path('', HomeView.as_view(), name='home'),
+    path('', cache_page(60 * 60 * 24)(HomeView.as_view()), name='home'),
     path('p/posts/', AllPostsView.as_view(), name='all_posts'),
     path("search/", SearchResultsView.as_view(), name="search"),
     path('<slug:slug>/', PostListView.as_view(), name='posts'),
